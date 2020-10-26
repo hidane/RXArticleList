@@ -61,6 +61,7 @@ class UsersAdapter(
     }
 
     fun updateData(list: List<User>, showBanner: Boolean) {
+        users.clear()
         users.addAll(list)
         isToShowBanner = showBanner
     }

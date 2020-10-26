@@ -49,7 +49,10 @@ class UserActivity : AppCompatActivity() {
         rv_users.adapter = userAdapter
 
         userAdapter.onItemClick = {
-            Toast.makeText(this,"Position clicked" + it , Toast.LENGTH_LONG).show()
+            SpUtils.getInstance(this)?.setShowBanner(false)
+            myusers?.let {
+                updateList(it)
+            }
         }
     }
 
