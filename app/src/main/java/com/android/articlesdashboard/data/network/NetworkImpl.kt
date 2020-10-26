@@ -9,7 +9,7 @@ class NetworkImpl : NetworkService {
     override fun getUsers(): Single<List<User>> {
         return Rx2AndroidNetworking.get("https://5f96478511ab98001603a759.mockapi.io/api/v1/User")
             .addQueryParameter("page","1")
-            .addQueryParameter("limit","40")
+            .addQueryParameter("limit","10")
             .build()
             .getObjectListSingle(User::class.java)
     }

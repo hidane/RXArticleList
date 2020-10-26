@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.articlesdashboard.R
 import com.android.articlesdashboard.data.model.User
-import com.android.articlesdashboard.utils.SpUtils
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_user.view.*
 import kotlinx.android.synthetic.main.item_banner.view.*
+import kotlinx.android.synthetic.main.item_user.view.*
 
 /**
  * Created by Abhishek.s on 26,October,2020
  */
-class UsersAdapter (
-    private val users: ArrayList<User>, private val isToShowBanner: Boolean
+class UsersAdapter(
+    private val users: ArrayList<User>, private var isToShowBanner: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var onItemClick: ((Int) -> Unit)? = null
 
     companion object {
         const val USER_ITEM = 0
@@ -24,25 +25,31 @@ class UsersAdapter (
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (isToShowBanner && users[position].equals(users.size -1) ) {
+        return if (isToShowBanner && position == (users.size - 1)) {
             BANNER_ITEM
         } else {
             USER_ITEM
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == BANNER_ITEM) {
-            UserViewHolder(LayoutInflater.from(parent.context).inflate(
-                R.layout.item_user, parent, false))
+            BannerViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_banner, parent, false
+                )
+            )
         } else {
-            BannerViewHolder (LayoutInflater.from(parent.context).inflate(
-                R.layout.item_banner, parent, false
-            ))
+            UserViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_user, parent, false
+                )
+            )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position).equals(BANNER_ITEM)) {
+        if (getItemViewType(position) == BANNER_ITEM) {
             (holder as BannerViewHolder).bind(users[position])
         } else {
             (holder as UserViewHolder).bind(users[position])
@@ -51,6 +58,11 @@ class UsersAdapter (
 
     override fun getItemCount(): Int {
         return users.size
+    }
+
+    fun updateData(list: List<User>, showBanner: Boolean) {
+        users.addAll(list)
+        isToShowBanner = showBanner
     }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -62,7 +74,14 @@ class UsersAdapter (
         }
     }
 
-    class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.iv_banner.setOnClickListener {
+                onItemClick?.invoke(adapterPosition)
+            }
+        }
+
         fun bind(user: User) {
             Glide.with(itemView.iv_banner.context)
                 .load(user.avatar)

@@ -30,6 +30,6 @@ class SpUtils {
     }
 
     fun getShowBanner(): Boolean? {
-        return sharedpreferences?.getBoolean(SHOW_BANNER, false)
+        return sharedpreferences?.getBoolean(SHOW_BANNER, true)
     }
 }

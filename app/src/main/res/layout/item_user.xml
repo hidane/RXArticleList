@@ -3,7 +3,8 @@
     android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_padding">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_user_pic"

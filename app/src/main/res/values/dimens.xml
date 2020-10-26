@@ -6,5 +6,6 @@
     <dimen name="list_item_height">60dp</dimen>
     <dimen name="text_size">25sp</dimen>
     <dimen name="banner_size">150dp</dimen>
-    <dimen name="banner_padding">20dp</dimen>
+    <dimen name="banner_padding">18dp</dimen>
+    <dimen name="activity_padding">16dp</dimen>
 </resources>
