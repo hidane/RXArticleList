@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArticlesDashboard">
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".ui.view.UserActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ArticlesDashboard.NoActionBar">
             <intent-filter>
